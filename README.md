@@ -6,6 +6,8 @@
 
 **Live: [mxnueel.github.io/gh-wrapped](https://mxnueel.github.io/gh-wrapped/)**
 
+![GitHub Wrapped screenshot](docs/screenshot.png)
+
 Spotify Wrapped, but for your GitHub activity. Enter a username, get a shareable stats card for the year — commits, pull requests, new repos, top language — rendered as a downloadable PNG. No account, no server.
 
 ## Why

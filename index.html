@@ -8,11 +8,17 @@
       name="description"
       content="Como el Spotify Wrapped, pero de tu actividad en GitHub. Pon tu usuario y genera una tarjeta con tus estadísticas del año, lista para compartir."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
     <header>
-      <h1>🎁 GitHub Wrapped</h1>
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <h1>GitHub<span class="brand-accent">Wrapped</span></h1>
+      </div>
       <p class="subtitle">Tu resumen anual de código, como el Spotify Wrapped. Sin cuenta, sin servidor.</p>
     </header>
 
@@ -44,7 +50,7 @@
 
     <div id="card-wrap" hidden>
       <canvas id="card" width="800" height="1000"></canvas>
-      <button id="download-btn" type="button">⬇️ Descargar imagen</button>
+      <button id="download-btn" type="button">Descargar imagen</button>
     </div>
 
     <p id="scope-note" hidden>

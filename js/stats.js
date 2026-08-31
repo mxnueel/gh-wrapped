@@ -22,10 +22,10 @@ export function reposCreatedInYear(repos, year) {
 }
 
 const PERSONALITIES = [
-  { min: 300, title: "Máquina de Commits", emoji: "⚙️" },
-  { min: 100, title: "Constructor Constante", emoji: "🔨" },
-  { min: 30, title: "Builder en Ascenso", emoji: "🌱" },
-  { min: 0, title: "Primeros Pasos", emoji: "🚀" },
+  { min: 300, title: "Máquina de Commits", accent: "#ff5c7c" },
+  { min: 100, title: "Constructor Constante", accent: "#ffb454" },
+  { min: 30, title: "Builder en Ascenso", accent: "#4da3ff" },
+  { min: 0, title: "Primeros Pasos", accent: "#7c5cff" },
 ];
 
 /** Titulo tipo "Wrapped" basado en el total de commits del año. */

@@ -31,7 +31,7 @@ function drawStatBlock(ctx, x, y, w, h, value, label, accent) {
   ctx.fill();
 
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 42px 'Space Grotesk', -apple-system, sans-serif";
+  ctx.font = "700 42px 'Sora', -apple-system, sans-serif";
   ctx.textAlign = "center";
   ctx.fillText(String(value), x + w / 2, y + h / 2 - 4);
 
@@ -52,7 +52,7 @@ export async function drawCard(ctx, data) {
   // document.fonts.ready puede tardar o, en algunos entornos, no resolver rapido
   // (verificado: bloqueaba toda la generacion de la tarjeta de forma intermitente).
   // Le damos 1.5s de margen y seguimos de todas formas - en el peor caso el texto
-  // usa la fuente de respaldo del sistema en vez de Space Grotesk, no es motivo
+  // usa la fuente de respaldo del sistema en vez de Sora, no es motivo
   // para dejar al usuario esperando indefinidamente.
   if (typeof document !== "undefined" && document.fonts?.ready) {
     await Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 1500))]);
@@ -88,7 +88,7 @@ export async function drawCard(ctx, data) {
 
   ctx.textAlign = "center";
   ctx.fillStyle = "#ffffff";
-  ctx.font = "700 30px 'Space Grotesk', -apple-system, sans-serif";
+  ctx.font = "700 30px 'Sora', -apple-system, sans-serif";
   ctx.fillText(`@${user.login}`, W / 2, 234);
 
   ctx.fillStyle = "rgba(255,255,255,0.6)";
@@ -96,7 +96,7 @@ export async function drawCard(ctx, data) {
   ctx.fillText(`GitHub Wrapped ${year}`, W / 2, 262);
 
   // Insignia de personalidad: pastilla con color de acento, sin emoji.
-  ctx.font = "600 20px 'Space Grotesk', -apple-system, sans-serif";
+  ctx.font = "600 20px 'Sora', -apple-system, sans-serif";
   const badgeText = personality.title;
   const badgeTextWidth = ctx.measureText(badgeText).width;
   const badgePadX = 22;

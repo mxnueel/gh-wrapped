@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GitHub Wrapped — tu resumen anual de código</title>
+    <meta
+      name="description"
+      content="Como el Spotify Wrapped, pero de tu actividad en GitHub. Pon tu usuario y genera una tarjeta con tus estadísticas del año, lista para compartir."
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>🎁 GitHub Wrapped</h1>
+      <p class="subtitle">Tu resumen anual de código, como el Spotify Wrapped. Sin cuenta, sin servidor.</p>
+    </header>
+
+    <form id="search-form">
+      <input id="username-input" type="text" placeholder="tu-usuario-de-github" autocomplete="off" />
+      <select id="year-select"></select>
+      <button type="submit">Generar</button>
+    </form>
+    <div id="examples">
+      Prueba con:
+      <button type="button" class="example-btn" data-user="mxnueel">mxnueel</button>
+      <button type="button" class="example-btn" data-user="sindresorhus">sindresorhus</button>
+    </div>
+
+    <details id="token-details">
+      <summary>¿Errores de límite de peticiones? Pega un token gratuito (opcional)</summary>
+      <p>
+        Sin token: 60 peticiones/hora. Con un token de solo lectura gratuito: 5000/hora. Genera uno en
+        <a href="https://github.com/settings/tokens/new?description=gh-wrapped&scopes=public_repo" target="_blank" rel="noopener"
+          >github.com/settings/tokens</a
+        >
+        (no necesita ningún permiso marcado, es solo para leer datos públicos) y pégalo aquí. Se queda solo en tu
+        navegador — nunca se manda a ningún servidor nuestro, solo directo a la API de GitHub.
+      </p>
+      <input id="token-input" type="password" placeholder="ghp_..." autocomplete="off" />
+    </details>
+
+    <div id="status-text"></div>
+
+    <div id="card-wrap" hidden>
+      <canvas id="card" width="800" height="1000"></canvas>
+      <button id="download-btn" type="button">⬇️ Descargar imagen</button>
+    </div>
+
+    <p id="scope-note" hidden>
+      Nota: estas estadísticas reflejan la actividad en los <strong>repositorios propios</strong> del usuario (commits,
+      lenguajes, estrellas). No incluyen contribuciones a repositorios de otras personas u organizaciones — la API
+      pública de GitHub no permite calcular eso de forma confiable sin autenticación.
+    </p>
+
+    <footer>
+      Datos en vivo de la <a href="https://docs.github.com/en/rest" target="_blank" rel="noopener">API pública de GitHub</a>.
+      Código abierto en <a href="https://github.com/mxnueel/gh-wrapped" target="_blank" rel="noopener">GitHub</a>.
+    </footer>
+
+    <script type="module" src="js/app.js"></script>
+  </body>
+</html>

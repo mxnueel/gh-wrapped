@@ -1,0 +1,33 @@
+{
+  "name": "gh-wrapped",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Spotify-Wrapped-style annual recap of your GitHub activity — enter a username, get a shareable stats card. No account, no server, static site.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/github.test.js tests/stats.test.js tests/e2e.test.js",
+    "test:unit": "node --test tests/github.test.js tests/stats.test.js",
+    "test:e2e": "node --test tests/e2e.test.js"
+  },
+  "keywords": [
+    "github",
+    "wrapped",
+    "stats",
+    "data-visualization",
+    "canvas",
+    "static-site"
+  ],
+  "author": "Manuel Bautista",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mxnueel/gh-wrapped.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mxnueel/gh-wrapped/issues"
+  },
+  "homepage": "https://mxnueel.github.io/gh-wrapped/",
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}

@@ -49,8 +49,13 @@ export async function drawCard(ctx, data) {
   const W = 800;
   const H = 1000;
 
+  // document.fonts.ready puede tardar o, en algunos entornos, no resolver rapido
+  // (verificado: bloqueaba toda la generacion de la tarjeta de forma intermitente).
+  // Le damos 1.5s de margen y seguimos de todas formas - en el peor caso el texto
+  // usa la fuente de respaldo del sistema en vez de Space Grotesk, no es motivo
+  // para dejar al usuario esperando indefinidamente.
   if (typeof document !== "undefined" && document.fonts?.ready) {
-    await document.fonts.ready;
+    await Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 1500))]);
   }
 
   const gradient = ctx.createLinearGradient(0, 0, W, H);

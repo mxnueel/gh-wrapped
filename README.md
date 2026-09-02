@@ -6,17 +6,15 @@
 
 **Live: [mxnueel.github.io/gh-wrapped](https://mxnueel.github.io/gh-wrapped/)**
 
-![GitHub Wrapped screenshot](docs/screenshot.png)
+![Typing a GitHub username and watching the real Wrapped card materialize with live stats](docs/demo.gif)
 
-Spotify Wrapped, but for your GitHub activity. Enter a username, get a shareable stats card for the year — commits, pull requests, new repos, top language — rendered as a downloadable PNG. No account, no server.
+*(Real recording of the live app — typing a username, hitting Generar, watching the actual card materialize and its numbers count up. No mockup: same code, same GitHub API calls.)*
 
-## Why
+Spotify Wrapped, but for your GitHub activity. Enter a username, get a shareable stats card for the year — commits, pull requests, new repos, top language — rendered as a downloadable PNG. No account, no server. It's the same reason `github-readme-stats` embeds in thousands of profile READMEs: people want machine-generated proof of their own work, just in the "wrapped" format instead of a static badge.
 
-Annual recaps are a proven mechanic for voluntary sharing — Spotify Wrapped is the reference case at massive scale, and `github-readme-stats` (a similarly-shaped tool for GitHub profile badges) is one of the most widely embedded developer tools on GitHub, proving developers specifically want machine-generated proof of their own work. This applies the same idea in the "wrapped" format instead of a static badge.
+## Why commit counts don't use GitHub's commit search API
 
-## A hard lesson this project is built around
-
-GitHub's dedicated **commit search API** (`/search/commits`) looks like the obvious way to count a user's commits for a year — it isn't reliable. Testing it live, a well-known account showed **184,836 commits** for one year, because the endpoint counts duplicate commits across every fork/mirror of a repo, not just the original. This project deliberately avoids that endpoint. Instead, commit counts come from the standard commits-list endpoint's pagination (`Link` header, `per_page=1`, read the last page number) scoped per-repo and per-date-range — verified against real repos with known commit counts before shipping.
+`/search/commits` looks like the obvious way to count a user's commits for a year — it isn't reliable. Testing it live, a well-known account showed **184,836 commits** for one year, because the endpoint counts duplicate commits across every fork/mirror of a repo, not just the original. `countCommitsInRepo()` in [`js/github.js`](js/github.js) avoids that endpoint entirely: it paginates the standard commits-list endpoint (`Link` header, `per_page=1`, read the last page number) scoped per-repo and per-date-range — verified against real repos with known commit counts before shipping.
 
 **Honest scope limitation as a result:** these stats reflect activity on the user's **own repositories** only (commits, languages, stars, new repos). They don't include contributions to other people's or organizations' repos — GitHub's public API has no reliable, unauthenticated way to compute that across a whole account. Pull request and issue counts (via GitHub's Search API for issues, which — unlike the commit search endpoint — checked out accurate in testing) aren't subject to this limitation.
 

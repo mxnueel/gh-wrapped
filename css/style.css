@@ -70,7 +70,7 @@ header h1 {
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 27px;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em; /* texto grande: tracking negativo, se lee mas junto de lo natural si no */
 }
 
 .brand-accent {
@@ -171,6 +171,16 @@ button:active {
   margin: 0 20px 10px;
   font-size: 12px;
   color: var(--text-dim);
+  border-radius: 12px;
+  transition: background-color 0.2s var(--ease), padding 0.2s var(--ease);
+}
+
+#token-details[open] {
+  /* Material translucido: separa el panel del fondo sin usar un borde duro. */
+  background: rgba(18, 21, 28, 0.6);
+  backdrop-filter: blur(20px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 16px 14px;
 }
 
 #token-details summary {
@@ -211,18 +221,9 @@ button:active {
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  animation: card-in 0.5s var(--ease);
-}
-
-@keyframes card-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  /* opacity/transform/filter aqui los controla js/app.js (revealCard) frame a
+     frame, para poder leer el valor visible actual si una regeneracion
+     interrumpe la animacion anterior a medio camino. */
 }
 
 #card {
@@ -258,6 +259,7 @@ button:active {
 footer {
   padding: 20px 20px 0;
   font-size: 11px;
+  letter-spacing: 0.01em; /* texto chico: tracking positivo para legibilidad */
   color: var(--text-dim);
   text-align: center;
 }
@@ -287,5 +289,12 @@ footer a:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  #token-details[open] {
+    background: var(--panel);
+    backdrop-filter: none;
   }
 }

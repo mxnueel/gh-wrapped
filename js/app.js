@@ -15,6 +15,44 @@ const downloadBtn = document.getElementById("download-btn");
 const scopeNote = document.getElementById("scope-note");
 const tokenInput = document.getElementById("token-input");
 
+const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+let cardAnimHandle = 0;
+let cardScale = 0.97;
+
+// Aparicion "material" de la tarjeta (opacity + scale + blur juntos, no solo
+// un fade) que lee el valor visible actual en vez de saltar al destino — asi
+// una regeneracion rapida no da un salto brusco si interrumpe la anterior.
+// Ver skill apple-design: seccion 3 (interrumpibilidad) y 12 (materializar).
+function revealCard() {
+  const wasHidden = cardWrap.hidden;
+  cardWrap.hidden = false;
+  cancelAnimationFrame(cardAnimHandle);
+
+  if (reduceMotionQuery.matches) {
+    cardWrap.style.opacity = "1";
+    cardWrap.style.transform = "scale(1)";
+    cardWrap.style.filter = "none";
+    return;
+  }
+
+  const fromOpacity = wasHidden ? 0 : parseFloat(getComputedStyle(cardWrap).opacity) || 0;
+  const fromScale = wasHidden ? 0.97 : cardScale;
+  const duration = 420;
+  const start = performance.now();
+
+  function tick(now) {
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3); // decelera sin rebote, como un resorte damping=1
+    const opacity = fromOpacity + (1 - fromOpacity) * eased;
+    cardScale = fromScale + (1 - fromScale) * eased;
+    cardWrap.style.opacity = String(opacity);
+    cardWrap.style.transform = `scale(${cardScale})`;
+    cardWrap.style.filter = `blur(${(1 - eased) * 6}px)`;
+    if (t < 1) cardAnimHandle = requestAnimationFrame(tick);
+  }
+  cardAnimHandle = requestAnimationFrame(tick);
+}
+
 const savedToken = localStorage.getItem(TOKEN_STORAGE_KEY);
 if (savedToken) {
   tokenInput.value = savedToken;
@@ -80,7 +118,7 @@ async function generate(username, year) {
     const ctx = canvas.getContext("2d");
     await drawCard(ctx, { user, year, personality, stats });
 
-    cardWrap.hidden = false;
+    revealCard();
     scopeNote.hidden = false;
     statusText.textContent =
       reposForCommits.length < repos.length
@@ -94,7 +132,8 @@ async function generate(username, year) {
   }
 }
 
-downloadBtn.addEventListener("click", () => {
+downloadBtn.addEventListener("click", async () => {
+  await canvas.__cardAnimationDone; // no exportar a medio contar los numeros
   const link = document.createElement("a");
   link.download = `github-wrapped-${usernameInput.value}-${yearSelect.value}.png`;
   link.href = canvas.toDataURL("image/png");

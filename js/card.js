@@ -56,9 +56,13 @@ function renderFrame(ctx, data, avatar, progress) {
   const W = 800;
   const H = 1000;
 
+  // Warm near-black, not the blue/purple-navy gradient every AI-generated
+  // dark UI reaches for by default - lets the gold site accent and the
+  // per-tier personality colors (js/stats.js) read as a spotlight, not just
+  // more blue-on-blue.
   const gradient = ctx.createLinearGradient(0, 0, W, H);
-  gradient.addColorStop(0, "#120c24");
-  gradient.addColorStop(1, "#07152a");
+  gradient.addColorStop(0, "#170f07");
+  gradient.addColorStop(1, "#0c0704");
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, W, H);
 

@@ -1,15 +1,24 @@
 :root {
-  --bg: #0a0c10;
-  --panel: #12151c;
-  --border: #262b36;
-  --text: #eef0f3;
-  --text-dim: #8b93a3;
-  /* Warm gold/spotlight duotone - a "your year, celebrated" feel, distinct
-     from the blue-to-purple gradient that's the single most common
-     AI-generated dev-tool default (and was previously identical to this
-     project's own two lowest personality-tier colors in stats.js). */
-  --accent: #ffcb47;
-  --accent-2: #ff8a3d;
+  /* A near-black background with one bright accent is itself a generic
+     AI-design default, independent of which hue fills it in (recoloring
+     alone doesn't fix that - see /focused-product-design). This is a
+     "Wrapped" - a thing to be proud of and share - so it reads better as a
+     warm parchment/certificate you'd frame than another dark dashboard,
+     and it now matches the downloadable card's own palette instead of a
+     dark page around a light card.
+     --accent is used as TEXT (links, borders) so it's kept dark enough for
+     real WCAG contrast against --bg; --accent-fill/--accent-2 are fills
+     only (button gradient, brand mark) and can stay vivid since dark text
+     sits on top of them, not the other way around. All contrast pairs
+     verified with real luminance math, not eyeballed. */
+  --bg: #f7ecd3;
+  --panel: #fffbf0;
+  --border: #ddc48f;
+  --text: #2a1f0f;
+  --text-dim: #5f4e30;
+  --accent: #96500e;
+  --accent-fill: #d98a1f;
+  --accent-2: #ffb454;
   --font-display: "Sora", -apple-system, sans-serif;
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -44,7 +53,6 @@ body {
 header {
   padding: 26px 20px 10px;
   text-align: center;
-  background: radial-gradient(ellipse 700px 220px at 50% 0%, rgba(255, 138, 61, 0.14), transparent);
 }
 
 .brand {
@@ -58,7 +66,7 @@ header {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, var(--accent), var(--accent-2), var(--accent));
+  background: conic-gradient(from 0deg, var(--accent-fill), var(--accent-2), var(--accent-fill));
   animation: mark-rotate 4s linear infinite;
   flex-shrink: 0;
 }
@@ -113,7 +121,7 @@ header h1 {
 #username-input:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(255, 203, 71, 0.15);
+  box-shadow: 0 0 0 3px rgba(150, 80, 14, 0.15);
 }
 
 #year-select {
@@ -134,7 +142,7 @@ button:active {
 }
 
 #search-form button {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: linear-gradient(135deg, var(--accent-fill), var(--accent-2));
   color: #050810;
   border: none;
   border-radius: 8px;
@@ -144,7 +152,7 @@ button:active {
 }
 
 #search-form button:hover {
-  box-shadow: 0 6px 20px rgba(255, 203, 71, 0.3);
+  box-shadow: 0 6px 20px rgba(217, 138, 31, 0.35);
 }
 
 #examples {
@@ -167,7 +175,7 @@ button:active {
 
 .example-btn:hover {
   border-color: var(--accent);
-  background: rgba(255, 203, 71, 0.08);
+  background: rgba(150, 80, 14, 0.08);
 }
 
 #token-details {
@@ -181,9 +189,9 @@ button:active {
 
 #token-details[open] {
   /* Material translucido: separa el panel del fondo sin usar un borde duro. */
-  background: rgba(18, 21, 28, 0.6);
+  background: rgba(255, 251, 240, 0.75);
   backdrop-filter: blur(20px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(42, 31, 15, 0.08);
   padding: 10px 16px 14px;
 }
 
@@ -234,8 +242,8 @@ button:active {
   max-width: 90vw;
   width: 400px;
   height: auto;
-  border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  border-radius: 6px;
+  box-shadow: 0 20px 50px rgba(42, 31, 15, 0.22);
 }
 
 #download-btn {
